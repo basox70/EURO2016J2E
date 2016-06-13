@@ -1,26 +1,38 @@
 package bean;
 
 public class Bettor {
-	private int id, score;
-	private String login, password;
+	private int idBettor, currentPositionVictory, currentPositionScore;
+	private String login, nick, password;
 	
-	public int getId() {
-		return id;
+	public int getIdBettor() {
+		return idBettor;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdBettor(int idBettor) {
+		this.idBettor = idBettor;
 	}
-	public int getScore() {
-		return score;
+	public int getCurrentPositionVictory() {
+		return currentPositionVictory;
 	}
-	public void setScore(int score) {
-		this.score = score;
+	public void setCurrentPositionVictory(int currentPositionVictory) {
+		this.currentPositionVictory = currentPositionVictory;
+	}
+	public int getCurrentPositionScore() {
+		return currentPositionScore;
+	}
+	public void setCurrentPositionScore(int currentPositionScore) {
+		this.currentPositionScore = currentPositionScore;
 	}
 	public String getLogin() {
 		return login;
 	}
 	public void setLogin(String login) {
 		this.login = login;
+	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	public String getPassword() {
 		return password;

@@ -3,15 +3,21 @@ package bean;
 import java.util.Date;
 
 public class Event {
-	private int id, team1Score, team2Score, teamVictory;
-	private Date date;
-	private String weather, name;
+	private int idEvent, team1Score, team2Score, teamVictory;
+	private Date eventDate;
+	private String weather, name, city;
 	
-	public int getId() {
-		return id;
+	public String getCity() {
+		return city;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public int getIdEvent() {
+		return idEvent;
+	}
+	public void setIdEvent(int idEvent) {
+		this.idEvent = idEvent;
 	}
 	public int getTeam1Score() {
 		return team1Score;
@@ -31,11 +37,11 @@ public class Event {
 	public void setTeamVictory(int teamVictory) {
 		this.teamVictory = teamVictory;
 	}
-	public Date getDate() {
-		return date;
+	public Date getEventDate() {
+		return eventDate;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setEventDate(Date eventDate) {
+		this.eventDate = eventDate;
 	}
 	public String getWeather() {
 		return weather;
