@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container">
 <div class="card center">
             <div class="card-content">
               <div class="row">
@@ -23,11 +24,12 @@
                       <label for="pwd">Mot de passe</label>
                     </div>
                     <p class="">
-                      <input type="checkbox" id="test5" class="indigo darken-3" />
+                      <input type="checkbox" id="remember" class="indigo darken-3" name="remember" />
                       <label for="test5">Se souvenir de moi</label>
                     </p>
                     <button type="submit" class="center indigo darken-3 btn waves-effect waves-light">Connexion</button>
                   </form>
+                </div>
                 </div>
                 </div>
                 </div>
