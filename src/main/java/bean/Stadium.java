@@ -1,6 +1,6 @@
-package Bean;
+package bean;
 
-public class Team {
+public class Stadium {
 	private int id;
 	private String name;
 	

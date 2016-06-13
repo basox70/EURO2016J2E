@@ -1,4 +1,4 @@
-package Bean;
+package bean;
 
 public class ScoreBet extends Bet {
 	private int scoreTeam1, scoreTeam2;

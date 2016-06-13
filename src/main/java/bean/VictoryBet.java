@@ -1,4 +1,4 @@
-package Bean;
+package bean;
 
 public class VictoryBet extends Bet {
 	private Team bettorPrediction;
