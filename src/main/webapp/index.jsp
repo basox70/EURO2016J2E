@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="theme-color" content="#5c6bc0">
+    <meta name="theme-color" content="#5c6bc0" >
     <meta charset="UTF-8">
   </head>
   <body>
@@ -29,7 +29,7 @@
       <nav class="indigo lighten-1 z-depth-2">
         <div class="nav-wrapper">
           <a href="#!" class="brand-logo hide-on-med-and-down"><img width="20%" src="logo.png" /></a>
-          <a href="#!" class="brand-logo center">Abltx EuroBet2016</a>
+          <a href="#!" class="brand-logo center">Abltx EuroBet2016<%= request.getAttribute("test") %></a>
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
             <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">grade</i><span class="new badge">4</span></a></li>

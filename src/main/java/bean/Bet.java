@@ -3,8 +3,12 @@ package bean;
 import java.util.Date;
 
 public abstract class Bet {
+    
+    
 	private int id;
+        
 	private Date date;
+        
 	private Event event;
 	
 	public int getId() {
