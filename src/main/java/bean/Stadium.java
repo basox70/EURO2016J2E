@@ -1,8 +1,9 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,8 +24,8 @@ public class Stadium implements Serializable {
     @Column(name="name")
     private String name;
     
-    @OneToMany(mappedBy = "stadium")
-    private List<Event> events = new LinkedList<Event>();
+    @OneToMany(mappedBy = "stadium", cascade = CascadeType.ALL)
+    private Set<Event> events = new HashSet<Event>();
 
     public int getId() {
         return id;
@@ -42,11 +43,11 @@ public class Stadium implements Serializable {
         this.name = name;
     }
 
-    public List<Event> getEvents() {
+    public Set<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(Set<Event> events) {
         this.events = events;
     }
 }

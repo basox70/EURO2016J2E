@@ -10,5 +10,8 @@
     <mapping class="bean.Stadium"/>
     <mapping class="bean.Team"/>
     <mapping class="bean.Event"/>
+    <mapping class="bean.Bettor"/>
+    <mapping class="bean.ScoreBet"/>
+    <mapping class="bean.VictoryBet"/>
   </session-factory>
 </hibernate-configuration>

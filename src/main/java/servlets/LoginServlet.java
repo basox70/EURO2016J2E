@@ -10,9 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import bean.Bettor;
 import bean.Event;
-import bean.Stadium;
+import bean.ScoreBet;
 import bean.Team;
-import java.util.LinkedList;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
@@ -79,26 +79,21 @@ public class LoginServlet extends HttpServlet {
 //        session.close();
         //</editor-fold>
         
-        Stadium stadium = new Stadium();
-        stadium.setName("try onetomany 2");
+        ScoreBet scoreBet = new ScoreBet();
+        scoreBet.setPoints(10);
         
-        Event event = new Event();
-        event.setName("mainquare2");
+        Bettor bettor = new Bettor();
+        bettor.setLogin("test1");
+        bettor.setPassword("test1");
         
-        Event event2 = new Event();
-        event2.setName("mainquare3");
-        
-        LinkedList<Event> events = new LinkedList<Event>();
-        events.add(event);
-        
-        stadium.setEvents(events);
+        scoreBet.setBettor(bettor);
                 
         Session session = HibernateUtil.getSession();
         
         Transaction t = session.getTransaction();
         t.begin();
         
-        session.persist(stadium);
+        session.persist(scoreBet);
         
         t.commit();
         session.close();

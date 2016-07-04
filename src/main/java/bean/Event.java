@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -44,8 +43,14 @@ public class Event {
     private Stadium stadium;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTeam")
-    private Team team;
+    @JoinColumn(name = "idTeam1")
+    private Team team1;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idTeam2")
+    private Team team2;
+    
+    
 //    
 //    @Column(name="name")
 //    private String city;
@@ -122,13 +127,20 @@ public class Event {
         this.stadium = stadium;
     }
 
-    public Team getTeam() {
-        return team;
+    public Team getTeam1() {
+        return team1;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeam1(Team team) {
+        this.team1 = team;
     }
-    
+
+    public Team getTeam2() {
+        return team2;
+    }
+
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
+    }
     
 }
