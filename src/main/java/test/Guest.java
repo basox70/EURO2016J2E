@@ -1,4 +1,4 @@
-package fr.mistra.pgejpav2.jpa;
+package test;
 
 import java.util.ArrayList;
 import java.util.List;

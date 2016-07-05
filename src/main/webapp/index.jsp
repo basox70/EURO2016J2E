@@ -91,7 +91,7 @@
           <div class="row tabs-row">
             <ul class="tabs z-depth-1">
               <li class="tab col s6"><a href="#login">Se connecter</a></li>
-              <li class="tab col s6"><a href="#register">S'inscrire</a></li>
+              <li class="tab col s6"><a <c:if test="${!empty sessionScope.error}">class="active"</c:if> href="#register">S'inscrire</a></li>
             </ul>
           </div>
           <div class="card center">
@@ -115,18 +115,26 @@
                   </form>
                 </div>
                 <div id="register" class="col s12">
-                  <form role="form">
+                <c:if test="${!empty sessionScope.error}">
+                    <div class="card center">
+            			<div class="card-content">
+            				<span class="red-text">${sessionScope.error}</span>
+            			</div>
+            		</div>    
+            	</c:if>   
+            	<c:remove var="error" scope="session" />          
+                  <form role="form" method="post" action="signup">
                     <div class="input-field">
-                      <label class="control-label" for="email">Adresse e-mail</label>
-                      <input type="email" class="form-control" id="email">
+                      <input type="email" class="form-control" id="email_r" name="email">
+                      <label class="control-label" for="email_r">Adresse e-mail</label>
                     </div>
                     <div class="input-field">
-                      <input type="password" class="form-control" id="pwd">
-                      <label class="control-label" for="pwd">Mot de passe</label>
+                      <input type="password" class="form-control" id="pwd_r" name="pwd">
+                      <label class="control-label" for="pwd_r">Mot de passe</label>
                     </div>
                     <div class="input-field">
-                      <input type="password" class="form-control" id="pwd_conf">
-                      <label class="control-label" for="pwd_conf">Confirmez le mot de passe</label>
+                      <input type="password" class="form-control" id="pwd_conf_r" name="pwd_conf">
+                      <label class="control-label" for="pwd_conf_r">Confirmez le mot de passe</label>
                     </div>
                     <p class="">
                       <input type="checkbox" id="test4" class="indigo darken-3" />

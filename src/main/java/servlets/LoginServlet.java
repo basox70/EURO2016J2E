@@ -12,7 +12,11 @@ import bean.Bettor;
 import bean.Event;
 import bean.ScoreBet;
 import bean.Team;
+
+import java.util.List;
 import java.util.Set;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
@@ -31,14 +35,26 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String pwd = req.getParameter("pwd");
         Bettor b = new Bettor();
+        Session hibernateSession = HibernateUtil.getSession();
         HttpSession session = req.getSession();
+        String error = "";
+        
         b.setLogin(email);
-        if (email.equals("test@test.test") && pwd.equals("test")) {
-            session.setAttribute("email", email);
+        
+        String hql = "FROM Bettor WHERE login = :email and password = :password";
+    	Query query = hibernateSession.createQuery(hql);
+    	query.setParameter("email", email);
+    	query.setParameter("password", pwd);
+    	List results = query.list();
+    	
+    	if (results.size() == 1) {
+    		session.setAttribute("email", email);
             this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
-        } else {
-            this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
-        }
+    	} else {
+    		error = "Login / mot de passe incorrect(s)";
+    		session.setAttribute("errorLogin", error);
+    		this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+    	}
     }
 
     @Override

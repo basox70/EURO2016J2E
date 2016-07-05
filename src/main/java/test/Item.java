@@ -1,4 +1,4 @@
-package fr.mistra.pgejpav2.jpa;
+package test;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
