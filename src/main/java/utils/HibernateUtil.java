@@ -20,7 +20,6 @@ import org.hibernate.service.ServiceRegistry;
 public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
-    private static Boolean sessionInitialize = false;
 
     static {
         try {

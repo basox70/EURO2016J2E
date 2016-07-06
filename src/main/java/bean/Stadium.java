@@ -1,6 +1,5 @@
 package bean;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -14,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="stadium")
-public class Stadium implements Serializable {
+public class Stadium {
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

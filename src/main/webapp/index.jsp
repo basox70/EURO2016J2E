@@ -2,7 +2,16 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
+<%@ page  import="utils.StringUtil" %>
+<%@ page import="bean.Event" %>
 
+<% String baseUrl = request.getScheme()
+            + "://"
+            + request.getServerName()
+            + ":"
+            + request.getServerPort()
+            + request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,12 +59,17 @@
                                 <c:forEach var="event" items="${events}">
                                     <li class="collection-item avatar">
                                         <i class="material-icons circle">${event.getName()}</i>
-                                        <span class="title">${event.getTeam1().getName()} - ${event.getTeam2().getName()}</span>
+                                        <span class="title">
+                                            <% Event event = (Event) pageContext.getAttribute("event");%>
+                                            <%= StringUtil.toUCFirst(event.getTeam1().getName())%>
+                                            - 
+                                            <%= StringUtil.toUCFirst(event.getTeam2().getName())%>
+                                        </span>
                                         <p>
                                             ${dateFormat.format(event.getEventDate())} h
                                         </p>
-                                        <c:if test="${!empty sessionScope.email}">
-                                            <a class="secondary-content modal-trigger waves-effect waves-light indigo-text" href="#modal1"><i class="material-icons">games</i></a>
+                                        <c:if test="${!empty sessionScope.bettor}">
+                                            <a class="secondary-content modal-trigger waves-effect waves-light indigo-text" onclick="showBet(${event.getIdEvent()})"><i class="material-icons">games</i></a>
                                         </c:if>
                                     </li>
                                 </c:forEach>
@@ -91,7 +105,7 @@
                     </div>
                 </div>
                 <div class="col s12 m12 l4">
-                    <c:if test="${empty sessionScope.email}">
+                    <c:if test="${empty sessionScope.bettor }">
                         <div class="row tabs-row">
                             <ul class="tabs z-depth-1">
                                 <li class="tab col s6"><a href="#login">Se connecter</a></li>
@@ -151,13 +165,13 @@
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${!empty sessionScope.email}">
+                    <c:if test="${!empty sessionScope.bettor}">
                         <div class="card center">
                             <div class="card-content">
                                 <div class="row">
                                     <div id="login" class="col s12">
                                         <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                                        <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.email}
+                                        <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.bettor.getLogin()}
                                             <br /><a href="./logout">Déconnexion</a></p>
                                     </div>
                                 </div>
@@ -244,37 +258,41 @@
                 </div>
             </div>
         </footer>
-        <div id="modal1" class="modal bottom-sheet">
+        <div id="modal" class="modal bottom-sheet">
             <div class="modal-content center indigo indigo-darken-2 white-text">
                 <div class="row">
                     <div class="col s12 m12 l2 center">
                         <img src="flags/48/France.png" class="flag" alt="France" />
                     </div>
                     <div class="col s12 l8 center">
-                        <h4>France - Allemagne</h4>
-                        <p>10 Juin 2016</p>
+                        <h4 >France - Allemagne</h4>
+                        <p class="event-date">10 Juin 2016</p>
                     </div>
                     <div class="col s12 m12 l2 center">
                         <img src="flags/48/Germany.png" class="flag" alt="Allemagne" />
                     </div>
                 </div>
-
             </div>
             <div class="modal-content">
                 <div class="row">
-                    <div class="col s12 m4 l4 center">
-                        <a class="waves-effect indigo waves-indigo btn" href="#">Victoire France</a>
-                        <p>(3.66)</p>
-                    </div>
-                    <div class="col s12 m4 l4 center">
-                        <a class="waves-effect white waves-white btn black-text" href="#">Match nul</a>
-                        <p>(1.58)</p>
-                    </div>
-                    <div class="col s12 m4 l4 center">
-                        <a class="waves-effect indigo waves-indigo btn" href="#">Victoire Allemagne</a>
-                        <p>(1.04)</p>
-                    </div>
+
+                    <form role="form" method="post" action="bet">
+                        <div class="col s12 m4 l4 center">
+                            <button type="submit" name="bet" class="waves-effect indigo waves-indigo btn team1">Victoire</button>
+                            <p>(3.66)</p>
+                        </div>
+                        <div class="col s12 m4 l4 center">
+                            <button type="submit" name="bet" class="waves-effect white waves-white btn black-text">Match nul</button>
+                            <p>(1.58)</p>
+                        </div>
+                        <div class="col s12 m4 l4 center">
+                            <button type="submit" name="bet" class="waves-effect indigo waves-indigo btn team2" href="#">Victoire </button>
+                            <p>(1.04)</p>
+                        </div>
                 </div>
+            </div>
+            <div class="modal-progress progress">
+                <div class="indeterminate"></div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Fermer</a>
@@ -282,16 +300,34 @@
         </div>
 
         <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+        <script type="text/javascript" src="<%= baseUrl%>/js/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $(".button-collapse").sideNav();
                 $('ul.tabs').tabs();
                 $('.parallax').parallax();
-                $('.modal-trigger').leanModal();
-
             });
+
+            function showBet(idEvent) {
+                $('.modal-content').hide();
+                $('#modal').openModal();
+
+                $.post("<%= baseUrl%>/betajax",
+                {idEvent: idEvent},
+                function (event) {
+                    $('.modal-progress').hide();
+                    $('.modal-content').show();
+
+                    $('.team1').append(event.team1.name);
+                    $('.team1').val(event.team1.id);
+                    $('.team2').append(event.team2.name);
+                    $('.team2').val(event.team1.id);
+                });
+            }
+            
+            
         </script>
     </body>
 </html>

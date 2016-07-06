@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import bean.Bettor;
+import dao.Dao;
+import java.util.List;
 import utils.HibernateUtil;
 
 public class SignupServlet extends HttpServlet {
@@ -28,34 +28,30 @@ public class SignupServlet extends HttpServlet {
         String pwd_conf = req.getParameter("pwd_conf");
         HttpSession session = req.getSession();
         String error = "";
-        Session hibernateSession = HibernateUtil.getSession();
-        Bettor b = new Bettor();
-        
-        b.setLogin(email);
-        b.setPassword(pwd);
         
         if (!pwd.equals(pwd_conf)) {
-        	error = "La confirmation de mot de passe ne correspond pas";
-        	session.setAttribute("error", error);
+            error = "La confirmation de mot de passe ne correspond pas";
+            session.setAttribute("error", error);
+            
         } else {
-        	String hql = "FROM Bettor WHERE login = :email";
-        	Query query = hibernateSession.createQuery(hql);
-        	query.setParameter("email", email);
-        	List results = query.list();
-        	if (results.isEmpty()) {
-        		Transaction t = hibernateSession.getTransaction();
-        		t.begin();
-        		hibernateSession.persist(b);
-        		t.commit();
-        		session.setAttribute("email", email);
-                
-        	} else {
-        		error = "L'adresse mail est déjà présente dans la base de données";
-            	session.setAttribute("errorSignUp", error);
-        	}
+            Bettor b = new Bettor();
+            b.setLogin(email);
+            b.setPassword(pwd);
+            
+            Dao<Bettor> dao = new Dao<Bettor>();
+            List<Bettor> results = dao.getBy(Bettor.class, "login = ?", email);
+            
+            if (results.isEmpty()) {
+                dao.saveOrUpdate(b);
+                session.setAttribute("bettor", b);
+            } else {
+                error = "L'adresse mail est déjà présente dans la base de données";
+                session.setAttribute("errorSignUp", error);
+            }
         }
         
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+        String baseUrl = req.getRequestURL().toString().substring(0, req.getRequestURL().toString().lastIndexOf("/")+1 );
+        resp.sendRedirect(baseUrl);
 
     }
 }

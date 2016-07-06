@@ -8,8 +8,6 @@ package dao;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.internal.QueryImpl;
 import utils.HibernateUtil;
 
 /**
@@ -20,7 +18,6 @@ import utils.HibernateUtil;
 public class Dao<T> {
     
     private Session session;
-    private Transaction transaction;
     
     public Dao() {
     }
@@ -84,12 +81,12 @@ public class Dao<T> {
      * @param where
      * @return 
      */
-    public List<T> getBy(Class objectClass, String where, String ... parameters) {
+    public List<T> getBy(Class objectClass, int limit, String where, String ... parameters) {
         
         String hql = "FROM "+objectClass.getSimpleName();
-                
+        
         if(where != null) {
-            hql = hql.concat(" WHERE ").concat(where);
+            hql = hql + " WHERE " + where;
         }
         
         startOperation();
@@ -104,6 +101,9 @@ public class Dao<T> {
             }
         }
         
+        if(limit != -1) {
+            query.setMaxResults(limit);
+        }
         
         List<T> objects = query.list();
         endOperation();
@@ -111,14 +111,16 @@ public class Dao<T> {
         return objects;
     }
     
-    /**
-     * Retour la liste de toute les instances de la classe donné en parametre
-     * @param objectClass
-     * @return 
-     */
-    public List<T> getAll(Class objectClass) {
-        return getBy(objectClass, null, null);
+    public List<T> getBy(Class objectClass, String where, String ... parameters) {
+        return getBy(objectClass, -1, where, parameters);
     }
     
+    public List<T> getAll(Class objectClass, int limit) {
+        return getBy(objectClass, limit, null, null);
+    }
+    
+    public List<T> getAll(Class objectClass) {
+        return getBy(objectClass, -1, null, null);
+    }
     
 }

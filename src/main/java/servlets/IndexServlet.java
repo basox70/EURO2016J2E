@@ -39,7 +39,7 @@ public class IndexServlet extends HttpServlet {
         request.setAttribute("dateFormat", dateFormat);
         
         Dao<Event> dao = new Dao<Event>();
-        List<Event> events = dao.getAll(Event.class);
+        List<Event> events = dao.getAll(Event.class, 5);
         request.setAttribute("events", events);
         
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);

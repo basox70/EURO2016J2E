@@ -7,6 +7,7 @@
     <property name="hibernate.connection.url">jdbc:mysql://php.bdubruque.net:3306/abltx?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">abltx</property>
     <property name="hibernate.connection.password">abltx2016</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <mapping class="bean.Stadium"/>
     <mapping class="bean.Team"/>
     <mapping class="bean.Event"/>
