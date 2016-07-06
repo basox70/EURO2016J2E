@@ -30,7 +30,7 @@ public class Dao<T> {
      * Initialise et débute la transaction
      */
     private void startOperation() {
-        this.session = HibernateUtil.getSessionInitialize();
+        this.session = HibernateUtil.getSession();
         this.session.beginTransaction();
     }
     

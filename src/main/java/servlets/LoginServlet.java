@@ -36,15 +36,13 @@ public class LoginServlet extends HttpServlet {
         String error = "";
         
         b.setLogin(email);
-        
-        String hql = "FROM Bettor WHERE login = :email and password = :password";
-    	Query query = hibernateSession.createQuery(hql);
-    	query.setParameter("email", email);
-    	query.setParameter("password", pwd);
-    	List<Bettor> results = query.list();
     	
+        Dao<Bettor> dao = new Dao<Bettor>();
+        List<Bettor> bettors = dao.getAll(Bettor.class);
+    	List<Bettor> results = dao.getBy(Bettor.class, "login = ? and password = ?", email, pwd);
     	if (results.size() == 1) {
     		session.setAttribute("email", email);
+                session.setAttribute("bettors", bettors);
             this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
     	} else {
     		error = "Login / mot de passe incorrect(s)";

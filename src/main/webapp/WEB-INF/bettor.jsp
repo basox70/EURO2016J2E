@@ -28,8 +28,8 @@
         <div class="navbar-fixed">
             <nav class="indigo lighten-1 z-depth-2">
                 <div class="nav-wrapper">
-                    <a href="./index" class="brand-logo hide-on-med-and-down"><img width="20%" src="./img/logo.png" /></a>
-                    <a href="./index" class="brand-logo center">Abltx EuroBet2016<%= request.getAttribute("test") %></a>
+                    <a href="#!" class="brand-logo hide-on-med-and-down"><img width="20%" src="logo.png" /></a>
+                    <a href="#!" class="brand-logo center">Abltx EuroBet2016<%= request.getAttribute("test") %></a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">grade</i><span class="new badge">4</span></a></li>
@@ -45,45 +45,8 @@
                 <div class="col s12 l8">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">Prochains matchs</span>
-                            <ul class="collection">
-                                <c:forEach var="event" items="${events}">
-                                    <li class="collection-item avatar">
-                                        <i class="material-icons circle">${event.getName()}</i>
-                                        <span class="title">${event.getTeam1().getName()} - ${event.getTeam2().getName()}</span>
-                                        <p>
-                                            ${dateFormat.format(event.getEventDate())} h
-                                        </p>
-                                        <c:if test="${!empty sessionScope.email}">
-                                            <a class="secondary-content modal-trigger waves-effect waves-light indigo-text" href="#modal1"><i class="material-icons">games</i></a>
-                                        </c:if>
-                                    </li>
-                                </c:forEach>
-                                <!--<li class="collection-item avatar">
-                                  <i class="material-icons circle">schedule</i>
-                                  <span class="title">Angleterre - Pays-Bas</span>
-                                  <p>
-                                    12 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>
-                                <li class="collection-item avatar">
-                                  <i class="material-icons circle green">schedule</i>
-                                  <span class="title">Allemagne - Pays-Bas</span>
-                                  <p>
-                                    13 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>
-                                <li class="collection-item avatar">
-                                  <i class="material-icons circle red">schedule</i>
-                                  <span class="title">Angleterre - Allemagne</span>
-                                  <p>
-                                    14 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>-->
-                            </ul>                                                                          
+                            <span class="card-title">${bettor.getLogin}</span>
+                                                                         
                         </div>
                         <div class="card-action">
                             <a href="#">Voir tous les matchs</a>
@@ -169,31 +132,42 @@
             </div>
             <div class="row">
                 <div class="parallax-container">
-                    <div class="parallax"><img src="./img/para.jpg"></div>
+                    <div class="parallax"><img src="para.jpg"></div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col s12 m6 l6">
+                <div class="col s12 m6 l4">
                     <div class="card">
+                        <div class="card-image">
+                            <img src="1ermatch.jpg">
+                        </div>
                         <div class="card-content">
-                            <span class="card-title">Classement des parieurs<br /></span>
-                            <c:forEach var="bettor" items="${bettors}" end="4">
-                                <div class="chip">
-                                    ${bettor.getIdBettor()}. ${bettor.getLogin()}${bettor.getIdBettor()}
-                                </div><br />
-                            </c:forEach>                                                                        
+                            <span class="card-title">Ne ratez pas le premier match</span>
                         </div>
                         <div class="card-action">
-                            <a href="./ranking">Voir le classement complet</a>
+                            <a href="#">Pronostiquer sur ce match</a>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m6 l6">
+                <div class="col s12 m6 l4">
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">Abltx EuroBet 2016</span>
                             <p class="grey-text">Le site de pronostics pour l'Euro 2016. Ce site est réalisé dans le cadre d'un projet de JEE. <br />Nous sommes 5 étudiants de 3ème année à l'EPSI d'Arras.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-image">
+                            <div class="video-container">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/2QhyuyyJCHU?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Classement des joueurs</span>
+                            <p class="grey-text"></p>
                         </div>
                     </div>
                 </div>
@@ -206,23 +180,23 @@
                     <div class="col l6 s12">
                         <h5 class="white-text">Site développé par</h5>
                         <div class="chip">
-                            <img src="./img/alexy.jpg" alt="Contact Person">
+                            <img src="alexy.jpg" alt="Contact Person">
                             Alexy Duquesnoy
                         </div>
                         <div class="chip">
-                            <img src="./img/basile.jpg" alt="Contact Person">
+                            <img src="basile.jpg" alt="Contact Person">
                             Basile Dubruque
                         </div>
                         <div class="chip">
-                            <img src="./img/louis.jpg" alt="Contact Person">
+                            <img src="louis.jpg" alt="Contact Person">
                             Louis Dupont
                         </div>
                         <div class="chip">
-                            <img src="./img/thomas.jpg" alt="Contact Person">
+                            <img src="thomas.jpg" alt="Contact Person">
                             Thomas Fournet
                         </div>
                         <div class="chip">
-                            <img src="./img/xavier.jpg" alt="Contact Person">
+                            <img src="xavier.jpg" alt="Contact Person">
                             Xavier Cobigo
                         </div>
                     </div>

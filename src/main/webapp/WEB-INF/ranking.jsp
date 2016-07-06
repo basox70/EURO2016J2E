@@ -45,44 +45,17 @@
                 <div class="col s12 l8">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">Prochains matchs</span>
+                            <span class="card-title">Classement des parieurs</span>
                             <ul class="collection">
-                                <c:forEach var="event" items="${events}">
+                                <c:forEach var="bettor" items="${bettors}">
                                     <li class="collection-item avatar">
-                                        <i class="material-icons circle">${event.getName()}</i>
-                                        <span class="title">${event.getTeam1().getName()} - ${event.getTeam2().getName()}</span>
+                                        <i class="material-icons circle"></i>
+                                        <span class="title">${bettor.getLogin()}</span>
                                         <p>
-                                            ${dateFormat.format(event.getEventDate())} h
+                                            ${bettor.getIdBettor()}
                                         </p>
-                                        <c:if test="${!empty sessionScope.email}">
-                                            <a class="secondary-content modal-trigger waves-effect waves-light indigo-text" href="#modal1"><i class="material-icons">games</i></a>
-                                        </c:if>
                                     </li>
                                 </c:forEach>
-                                <!--<li class="collection-item avatar">
-                                  <i class="material-icons circle">schedule</i>
-                                  <span class="title">Angleterre - Pays-Bas</span>
-                                  <p>
-                                    12 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>
-                                <li class="collection-item avatar">
-                                  <i class="material-icons circle green">schedule</i>
-                                  <span class="title">Allemagne - Pays-Bas</span>
-                                  <p>
-                                    13 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>
-                                <li class="collection-item avatar">
-                                  <i class="material-icons circle red">schedule</i>
-                                  <span class="title">Angleterre - Allemagne</span>
-                                  <p>
-                                    14 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>-->
                             </ul>                                                                          
                         </div>
                         <div class="card-action">
@@ -174,26 +147,37 @@
             </div>
 
             <div class="row">
-                <div class="col s12 m6 l6">
+                <div class="col s12 m6 l4">
                     <div class="card">
+                        <div class="card-image">
+                            <img src="./img/1ermatch.jpg">
+                        </div>
                         <div class="card-content">
-                            <span class="card-title">Classement des parieurs<br /></span>
-                            <c:forEach var="bettor" items="${bettors}" end="4">
-                                <div class="chip">
-                                    ${bettor.getIdBettor()}. ${bettor.getLogin()}${bettor.getIdBettor()}
-                                </div><br />
-                            </c:forEach>                                                                        
+                            <span class="card-title">Ne ratez pas le premier match</span>
                         </div>
                         <div class="card-action">
-                            <a href="./ranking">Voir le classement complet</a>
+                            <a href="#">Pronostiquer sur ce match</a>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m6 l6">
+                <div class="col s12 m6 l4">
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">Abltx EuroBet 2016</span>
                             <p class="grey-text">Le site de pronostics pour l'Euro 2016. Ce site est réalisé dans le cadre d'un projet de JEE. <br />Nous sommes 5 étudiants de 3ème année à l'EPSI d'Arras.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-image">
+                            <div class="video-container">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/2QhyuyyJCHU?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">Classement des joueurs</span>
+                            <p class="grey-text"></p>
                         </div>
                     </div>
                 </div>

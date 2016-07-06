@@ -30,7 +30,7 @@ public class LogoutServlet extends HttpServlet {
         session.invalidate();
 
         /* Affichage de la page de connexion */
-        this.getServletContext().getRequestDispatcher("/").forward( request, response );
+        this.getServletContext().getRequestDispatcher("/index").forward( request, response );
 	}
 
 	/**
