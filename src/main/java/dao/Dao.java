@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.internal.QueryImpl;
 import utils.HibernateUtil;
 
 /**
@@ -30,8 +31,7 @@ public class Dao<T> {
      */
     private void startOperation() {
         this.session = HibernateUtil.getSession();
-        this.transaction = this.session.getTransaction();
-        transaction.begin();
+        this.session.beginTransaction();
     }
     
     /**
@@ -39,7 +39,7 @@ public class Dao<T> {
      * Ferme la session
      */
     private void endOperation(){
-        this.transaction.commit();
+        this.session.getTransaction().commit();
         this.session.close();
     }
     
@@ -77,26 +77,47 @@ public class Dao<T> {
         return object;
     }
     
-    public List<T> getBy(Class objectClass, String where) {
+    
+    /**
+     * Retour la liste des objets correspondant au where indiqué
+     * @param objectClass
+     * @param where
+     * @return 
+     */
+    public List<T> getBy(Class objectClass, String where, String ... parameters) {
         
         String hql = "FROM "+objectClass.getSimpleName();
                 
         if(where != null) {
             hql = hql.concat(" WHERE ").concat(where);
         }
-        System.out.println("");
+        
         startOperation();
         
         Query query = session.createQuery(hql);
-        List<T> objects = query.list();
         
+        if(parameters != null) {
+            int cpt = 0;
+            for(String parameter : parameters) {
+                query.setParameter(cpt, parameter);
+                cpt++;
+            }
+        }
+        
+        
+        List<T> objects = query.list();
         endOperation();
         
         return objects;
     }
     
+    /**
+     * Retour la liste de toute les instances de la classe donné en parametre
+     * @param objectClass
+     * @return 
+     */
     public List<T> getAll(Class objectClass) {
-        return getBy(objectClass, null);
+        return getBy(objectClass, null, null);
     }
     
     
