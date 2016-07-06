@@ -12,162 +12,33 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="theme-color" content="#5c6bc0" >
-    <meta charset="UTF-8">
-  </head>
-  <body>
-    <ul id="dropdown1" class="dropdown-content">
-      <li><a href="#!">one</a></li>
-      <li><a href="#!">two</a></li>
-      <li class="divider"></li>
-      <li><a href="#!">three</a></li>
-    </ul>
-    <div class="navbar-fixed">
-      <nav class="indigo lighten-1 z-depth-2">
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo hide-on-med-and-down"><img width="20%" src="logo.png" /></a>
-          <a href="#!" class="brand-logo center">Abltx EuroBet2016<%= request.getAttribute("test") %></a>
-          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">grade</i><span class="new badge">4</span></a></li>
-          </ul>
-          <ul class="side-nav" id="mobile-demo">
-            <li><a href="sass.html">Notifications <span class="new badge">4</span></a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    <div class="container">
-      <div class="row" style="margin-top: 20px;">
-        <div class="col s12 l8">
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">Prochains matchs</span>
-              <ul class="collection">
-                <li class="collection-item avatar">
-                  <i class="material-icons circle">schedule</i>
-                  <span class="title">France - Allemagne</span>
-                  <p>
-                    10 Juin 2016
-                  </p>
-                  <a class="secondary-content modal-trigger waves-effect waves-light indigo-text" href="#modal1"><i class="material-icons">games</i></a>
-                </li>
-                <li class="collection-item avatar">
-                  <i class="material-icons circle">schedule</i>
-                  <span class="title">Angleterre - Pays-Bas</span>
-                  <p>
-                    12 Juin 2016
-                  </p>
-                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                </li>
-                <li class="collection-item avatar">
-                  <i class="material-icons circle green">schedule</i>
-                  <span class="title">Allemagne - Pays-Bas</span>
-                  <p>
-                    13 Juin 2016
-                  </p>
-                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                </li>
-                <li class="collection-item avatar">
-                  <i class="material-icons circle red">schedule</i>
-                  <span class="title">Angleterre - Allemagne</span>
-                  <p>
-                    14 Juin 2016
-                  </p>
-                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                </li>
-              </ul>                                                                          
-            </div>
-            <div class="card-action">
-              <a href="#">Voir tous les matchs</a>
-            </div>
-          </div>
-        </div>
-        <div class="col s12 m12 l4">
-        <c:if test="${empty sessionScope.email}">
-          <div class="row tabs-row">
-            <ul class="tabs z-depth-1">
-              <li class="tab col s6"><a href="#login">Se connecter</a></li>
-              <li class="tab col s6"><a <c:if test="${!empty sessionScope.error}">class="active"</c:if> href="#register">S'inscrire</a></li>
-            </ul>
-          </div>
-          <div class="card center">
-            <div class="card-content">
-              <div class="row">
-                <div id="login" class="col s12">
-                <c:if test="${!empty sessionScope.errorLogin}">
-                    <div class="card center orange accent-1">
-            			<div class="card-content">
-            				<span class="white-text">${sessionScope.errorLogin}</span>
-            			</div>
-            		</div>    
-            	</c:if>     
-            	<c:remove var="errorLogin" scope="session" />                
-                  <form role="form" method="post" action="login">
-                    <div class="input-field">
-                      <input type="email" class="input-field" id="email" name="email" />
-                      <label for="email">Adresse e-mail</label>
-                    </div>
-                    <div class="input-field">
-                      <input type="password" class="input-field" id="pwd" name="pwd" />
-                      <label for="pwd">Mot de passe</label>
-                    </div>
-                    <p class="">
-                      <input type="checkbox" id="remember" class="indigo darken-3" name="remember" />
-                      <label for="test5">Se souvenir de moi</label>
-                    </p>
-                    <button type="submit" class="center indigo darken-3 btn waves-effect waves-light">Connexion</button>
-                  </form>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="theme-color" content="#5c6bc0" >
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#!">one</a></li>
+            <li><a href="#!">two</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">three</a></li>
+        </ul>
+        <div class="navbar-fixed">
+            <nav class="indigo lighten-1 z-depth-2">
+                <div class="nav-wrapper">
+                    <a href="#!" class="brand-logo hide-on-med-and-down"><img width="20%" src="logo.png" /></a>
+                    <a href="#!" class="brand-logo center">Abltx EuroBet2016<%= request.getAttribute("test")%></a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">grade</i><span class="new badge">4</span></a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="sass.html">Notifications <span class="new badge">4</span></a></li>
+                    </ul>
                 </div>
-                <div id="register" class="col s12">
-                <c:if test="${!empty sessionScope.error}">
-                    <div class="card center orange accent-1">
-            			<div class="card-content">
-            				<span class="white-text">${sessionScope.error}</span>
-            			</div>
-            		</div>    
-            	</c:if>   
-            	<c:remove var="error" scope="session" />          
-                  <form role="form" method="post" action="signup">
-                    <div class="input-field">
-                      <input type="email" class="form-control" id="email_r" name="email">
-                      <label class="control-label" for="email_r">Adresse e-mail</label>
-                    </div>
-                    <div class="input-field">
-                      <input type="password" class="form-control" id="pwd_r" name="pwd">
-                      <label class="control-label" for="pwd_r">Mot de passe</label>
-                    </div>
-                    <div class="input-field">
-                      <input type="password" class="form-control" id="pwd_conf_r" name="pwd_conf">
-                      <label class="control-label" for="pwd_conf_r">Confirmez le mot de passe</label>
-                    </div>
-                    <p class="">
-                      <input type="checkbox" id="test4" class="indigo darken-3" />
-                      <label for="test4">Se souvenir de moi</label>
-                    </p>
-                    <button type="submit" class="center indigo darken-3 btn waves-effect waves-light">Inscription</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          </c:if>
-          <c:if test="${!empty sessionScope.email}">
-        <div class="card center">
-            <div class="card-content">
-              <div class="row">
-                <div id="login" class="col s12">
-                    <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                    <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.email}
-                    <br /><a href="./logout">Déconnexion</a></p>
-                </div>
-                </div>
-                </div>
-                </div>
-        </c:if>
+            </nav>
         </div>
         <div class="container">
             <div class="row" style="margin-top: 20px;">
