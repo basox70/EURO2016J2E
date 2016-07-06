@@ -98,6 +98,14 @@
             <div class="card-content">
               <div class="row">
                 <div id="login" class="col s12">
+                <c:if test="${!empty sessionScope.errorLogin}">
+                    <div class="card center orange accent-1">
+            			<div class="card-content">
+            				<span class="white-text">${sessionScope.errorLogin}</span>
+            			</div>
+            		</div>    
+            	</c:if>     
+            	<c:remove var="errorLogin" scope="session" />                
                   <form role="form" method="post" action="login">
                     <div class="input-field">
                       <input type="email" class="input-field" id="email" name="email" />
@@ -116,9 +124,9 @@
                 </div>
                 <div id="register" class="col s12">
                 <c:if test="${!empty sessionScope.error}">
-                    <div class="card center">
+                    <div class="card center orange accent-1">
             			<div class="card-content">
-            				<span class="red-text">${sessionScope.error}</span>
+            				<span class="white-text">${sessionScope.error}</span>
             			</div>
             		</div>    
             	</c:if>   

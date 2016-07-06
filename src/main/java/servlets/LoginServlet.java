@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
     	Query query = hibernateSession.createQuery(hql);
     	query.setParameter("email", email);
     	query.setParameter("password", pwd);
-    	List results = query.list();
+    	List<Bettor> results = query.list();
     	
     	if (results.size() == 1) {
     		session.setAttribute("email", email);
