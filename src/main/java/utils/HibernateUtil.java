@@ -20,7 +20,7 @@ import org.hibernate.service.ServiceRegistry;
 public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
-    private static Session session;
+    private static Boolean sessionInitialize = false;
 
     static {
         try {
@@ -44,12 +44,7 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    public static Session getSession() {
-        if (session == null || !session.isOpen()) {
-            session = sessionFactory.openSession();
-            return session;
-        } else {
-            return session;
-        }
+    public static Session getSessionInitialize() {
+        return sessionFactory.openSession();
     }
 }
