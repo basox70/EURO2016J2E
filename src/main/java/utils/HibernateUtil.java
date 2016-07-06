@@ -19,8 +19,8 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
-    private Session session;
+    private static SessionFactory sessionFactory;
+    private static Session session;
 
     static {
         try {
@@ -32,7 +32,7 @@ public class HibernateUtil {
             serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                     configuration.getProperties()).build();
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            
+
         } catch (Throwable ex) {
             // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
@@ -45,6 +45,12 @@ public class HibernateUtil {
     }
 
     public static Session getSession() {
-        return sessionFactory.openSession();
+        if (session == null) {
+            session = sessionFactory.openSession();
+            return session;
+        } else {
+            return session;
+        }
+
     }
 }

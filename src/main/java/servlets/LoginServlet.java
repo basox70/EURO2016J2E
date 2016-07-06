@@ -9,16 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Bettor;
-import bean.Event;
-import bean.ScoreBet;
-import bean.Team;
+import dao.Dao;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 /**
@@ -95,24 +91,14 @@ public class LoginServlet extends HttpServlet {
 //        session.close();
         //</editor-fold>
         
-        ScoreBet scoreBet = new ScoreBet();
-        scoreBet.setPoints(10);
+        Dao<Bettor> dao = new Dao<Bettor>();
+        List<Bettor> test = dao.getBy(Bettor.class, "idBettor > 3");
         
-        Bettor bettor = new Bettor();
-        bettor.setLogin("test1");
-        bettor.setPassword("test1");
+        for(Bettor bet : test) {
+            System.out.println(bet.getIdBettor());
+        }
         
-        scoreBet.setBettor(bettor);
-                
-        Session session = HibernateUtil.getSession();
         
-        Transaction t = session.getTransaction();
-        t.begin();
-        
-        session.persist(scoreBet);
-        
-        t.commit();
-        session.close();
 
         // TODO Auto-generated method stub
         HttpSession httpSession = req.getSession();
