@@ -45,12 +45,11 @@ public class HibernateUtil {
     }
 
     public static Session getSession() {
-        if (session == null) {
+        if (session == null || !session.isOpen()) {
             session = sessionFactory.openSession();
             return session;
         } else {
             return session;
         }
-
     }
 }
