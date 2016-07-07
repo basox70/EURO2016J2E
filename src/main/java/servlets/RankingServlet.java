@@ -7,6 +7,7 @@ package servlets;
 
 import bean.Bettor;
 import bean.Event;
+import dao.BettorDao;
 import dao.Dao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,11 +24,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Louis
  */
 public class RankingServlet extends HttpServlet {
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Dao<Bettor> dao = new Dao<Bettor>();
-        List<Bettor> bettors = dao.getAll(Bettor.class);
+        BettorDao dao = new BettorDao();
+        List<Bettor> bettors = dao.getBettorOrderBy("currentPositionScore DESC");
         request.setAttribute("bettors", bettors);
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/ranking.jsp").forward(request, response);

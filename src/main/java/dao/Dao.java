@@ -17,7 +17,15 @@ import utils.HibernateUtil;
  */
 public class Dao<T> {
     
-    private Session session;
+    protected Session session;
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
     
     public Dao() {
     }
@@ -26,7 +34,7 @@ public class Dao<T> {
      * Récupère la session
      * Initialise et débute la transaction
      */
-    private void startOperation() {
+    protected void startOperation() {
         this.session = HibernateUtil.getSession();
         this.session.beginTransaction();
     }
@@ -35,7 +43,7 @@ public class Dao<T> {
      * Commit la transaction en BDD
      * Ferme la session
      */
-    private void endOperation(){
+    protected void endOperation(){
         this.session.getTransaction().commit();
         this.session.close();
     }

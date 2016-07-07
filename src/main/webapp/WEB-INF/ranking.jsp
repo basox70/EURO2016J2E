@@ -46,17 +46,25 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">Classement des parieurs</span>
-                            <ul class="collection">
-                                <c:forEach var="bettor" items="${bettors}">
-                                    <li class="collection-item avatar">
-                                        <i class="material-icons circle"></i>
-                                        <span class="title">${bettor.getLogin()}</span>
-                                        <p>
-                                            ${bettor.getIdBettor()}
-                                        </p>
-                                    </li>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th data-field="id">N°</th>
+                                        <th data-field="name">Parieur</th>
+                                        <th data-field="price">Score</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>      
+                                <c:forEach var="bettor" items="${bettors}" varStatus="vs">
+                                    <tr>
+                                        <td>${vs.count}</td>
+                                        <td>${bettor.getLogin()}</td>
+                                        <td>${bettor.getCurrentPositionScore()}</td>
+                                    </tr>
                                 </c:forEach>
-                            </ul>                                                                          
+                            </tbody>
+                            </table>                                                                     
                         </div>
                         <div class="card-action">
                             <a href="#">Voir tous les matchs</a>
@@ -64,7 +72,7 @@
                     </div>
                 </div>
                 <div class="col s12 m12 l4">
-                    <c:if test="${empty sessionScope.email}">
+                    <c:if test="${empty sessionScope.bettor}">
                         <div class="row tabs-row">
                             <ul class="tabs z-depth-1">
                                 <li class="tab col s6"><a href="#login">Se connecter</a></li>
@@ -124,13 +132,13 @@
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${!empty sessionScope.email}">
+                    <c:if test="${!empty sessionScope.bettor}">
                         <div class="card center">
                             <div class="card-content">
                                 <div class="row">
                                     <div id="login" class="col s12">
                                         <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                                        <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.email}
+                                        <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.bettor.getLogin()}
                                             <br /><a href="./logout">Déconnexion</a></p>
                                     </div>
                                 </div>
