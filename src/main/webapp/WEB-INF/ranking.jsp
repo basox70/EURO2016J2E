@@ -59,7 +59,7 @@
                                 <c:forEach var="bettor" items="${bettors}" varStatus="vs">
                                     <tr>
                                         <td>${vs.count}</td>
-                                        <td>${bettor.getLogin()}</td>
+                                        <td><a href="./bettor?id=${bettor.getIdBettor()}">${bettor.getLogin()}</a></td>
                                         <td>${bettor.getCurrentPositionScore()}</td>
                                     </tr>
                                 </c:forEach>
@@ -67,7 +67,7 @@
                             </table>                                                                     
                         </div>
                         <div class="card-action">
-                            <a href="#">Voir tous les matchs</a>
+                            <a href="./index">Voir tous les matchs</a>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import bean.Bettor;
 import bean.Event;
 import dao.Dao;
 import java.io.IOException;
@@ -26,11 +27,11 @@ public class BettorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          
-        Dao<Event> dao = new Dao<Event>();
-        List<Event> events = dao.getAll(Event.class);
-        request.setAttribute("events", events);
+        Dao<Bettor> dao = new Dao<Bettor>();
+        Bettor bettor = dao.getById(Bettor.class, Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("bettor", bettor);
         
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/bettor.jsp").forward(request, response);
 
     }
 }

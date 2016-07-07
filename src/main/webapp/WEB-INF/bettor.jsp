@@ -28,7 +28,7 @@
         <div class="navbar-fixed">
             <nav class="indigo lighten-1 z-depth-2">
                 <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo hide-on-med-and-down"><img width="20%" src="logo.png" /></a>
+                    <a href="#!" class="brand-logo hide-on-med-and-down"><img width="20%" src="./img/logo.png" /></a>
                     <a href="#!" class="brand-logo center">Abltx EuroBet2016<%= request.getAttribute("test") %></a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
@@ -45,16 +45,19 @@
                 <div class="col s12 l8">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">${bettor.getLogin}</span>
-                                                                         
+                            <span class="card-title">${bettor.getLogin()}</span>
+                            <p>
+                                Score : ${bettor.getCurrentPositionScore()}
+                            </p>
+                                                                     
                         </div>
                         <div class="card-action">
-                            <a href="#">Voir tous les matchs</a>
+                            <a href="./ranking">Voir tous les parieurs</a>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m12 l4">
-                    <c:if test="${empty sessionScope.email}">
+                    <c:if test="${empty sessionScope.bettor}">
                         <div class="row tabs-row">
                             <ul class="tabs z-depth-1">
                                 <li class="tab col s6"><a href="#login">Se connecter</a></li>
@@ -114,13 +117,13 @@
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${!empty sessionScope.email}">
+                    <c:if test="${!empty sessionScope.bettor}">
                         <div class="card center">
                             <div class="card-content">
                                 <div class="row">
                                     <div id="login" class="col s12">
                                         <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                                        <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.email}
+                                        <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.bettor.getLogin()}
                                             <br /><a href="./logout">Déconnexion</a></p>
                                     </div>
                                 </div>
@@ -132,7 +135,7 @@
             </div>
             <div class="row">
                 <div class="parallax-container">
-                    <div class="parallax"><img src="para.jpg"></div>
+                    <div class="parallax"><img src="./img/para.jpg"></div>
                 </div>
             </div>
 
@@ -140,7 +143,7 @@
                 <div class="col s12 m6 l4">
                     <div class="card">
                         <div class="card-image">
-                            <img src="1ermatch.jpg">
+                            <img src="./img/1ermatch.jpg">
                         </div>
                         <div class="card-content">
                             <span class="card-title">Ne ratez pas le premier match</span>
@@ -180,23 +183,23 @@
                     <div class="col l6 s12">
                         <h5 class="white-text">Site développé par</h5>
                         <div class="chip">
-                            <img src="alexy.jpg" alt="Contact Person">
+                            <img src="./img/alexy.jpg" alt="Contact Person">
                             Alexy Duquesnoy
                         </div>
                         <div class="chip">
-                            <img src="basile.jpg" alt="Contact Person">
+                            <img src="./img/basile.jpg" alt="Contact Person">
                             Basile Dubruque
                         </div>
                         <div class="chip">
-                            <img src="louis.jpg" alt="Contact Person">
+                            <img src="./img/louis.jpg" alt="Contact Person">
                             Louis Dupont
                         </div>
                         <div class="chip">
-                            <img src="thomas.jpg" alt="Contact Person">
+                            <img src="./img/thomas.jpg" alt="Contact Person">
                             Thomas Fournet
                         </div>
                         <div class="chip">
-                            <img src="xavier.jpg" alt="Contact Person">
+                            <img src="./img/xavier.jpg" alt="Contact Person">
                             Xavier Cobigo
                         </div>
                     </div>
