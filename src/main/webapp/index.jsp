@@ -4,6 +4,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page  import="utils.StringUtil" %>
 <%@ page import="bean.Event" %>
+<%@ page import="java.util.Date" %>
 
 <% String baseUrl = request.getScheme()
             + "://"
@@ -38,7 +39,7 @@
             <nav class="indigo lighten-1 z-depth-2">
                 <div class="nav-wrapper">
                     <a href="./index" class="brand-logo hide-on-med-and-down"><img width="20%" src="./img/logo.png" /></a>
-                    <a href="./index" class="brand-logo center">Abltx EuroBet2016<%= request.getAttribute("test") %></a>
+                    <a href="./index" class="brand-logo center">Abltx EuroBet2016</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">grade</i><span class="new badge">4</span></a></li>
@@ -57,10 +58,18 @@
                             <span class="card-title">Prochains matchs</span>
                             <ul class="collection">
                                 <c:forEach var="event" items="${events}">
-                                    <li class="collection-item avatar">
-                                        <i class="material-icons circle">${event.getName()}</i>
+                                    <% Event event = (Event) pageContext.getAttribute("event");%>
+                                    <li class="collection-item avatar">                               
+                                        <%
+                                            String couleur = "red";
+                                            Boolean over = true;
+                                            if (new Date().compareTo(event.getEventDate()) < 0) {
+                                                couleur = "green";
+                                                over = false;
+                                            }
+                                        %>
+                                        <i class="material-icons circle <%= couleur%>"></i>
                                         <span class="title">
-                                            <% Event event = (Event) pageContext.getAttribute("event");%>
                                             <%= StringUtil.toUCFirst(event.getTeam1().getName())%>
                                             - 
                                             <%= StringUtil.toUCFirst(event.getTeam2().getName())%>
@@ -69,34 +78,19 @@
                                             ${dateFormat.format(event.getEventDate())} h
                                         </p>
                                         <c:if test="${!empty sessionScope.bettor}">
-                                            <a class="secondary-content modal-trigger waves-effect waves-light indigo-text" onclick="showBet(${event.getIdEvent()})"><i class="material-icons">games</i></a>
+                                            <a class="secondary-content modal-trigger waves-effect waves-light indigo-text" onclick="showBet(${event.getIdEvent()})">
+                                                <c:set var="over" value="<%= over %>" />
+                                                <c:set var="isBetted" value="${bettor.isBetted(event)}" />
+                                                <c:if test="${isBetted && !over}">
+                                                    <i class="material-icons">done</i>
+                                                </c:if>
+                                                <c:if test="${!isBetted && !over}">
+                                                    <i class="material-icons">games</i>
+                                                </c:if>
+                                            </a>
                                         </c:if>
                                     </li>
                                 </c:forEach>
-                                <!--<li class="collection-item avatar">
-                                  <i class="material-icons circle">schedule</i>
-                                  <span class="title">Angleterre - Pays-Bas</span>
-                                  <p>
-                                    12 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>
-                                <li class="collection-item avatar">
-                                  <i class="material-icons circle green">schedule</i>
-                                  <span class="title">Allemagne - Pays-Bas</span>
-                                  <p>
-                                    13 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>
-                                <li class="collection-item avatar">
-                                  <i class="material-icons circle red">schedule</i>
-                                  <span class="title">Angleterre - Allemagne</span>
-                                  <p>
-                                    14 Juin 2016
-                                  </p>
-                                  <a href="#!" class="secondary-content indigo-text"><i class="material-icons">games</i></a>
-                                </li>-->
                             </ul>                                                                          
                         </div>
                         <div class="card-action">
@@ -262,14 +256,14 @@
             <div class="modal-content center indigo indigo-darken-2 white-text">
                 <div class="row">
                     <div class="col s12 m12 l2 center">
-                        <img src="flags/48/France.png" class="flag" alt="France" />
+                        <img src="flags/48/France.png" class="flag flag-team1" alt="France" />
                     </div>
                     <div class="col s12 l8 center">
-                        <h4 >France - Allemagne</h4>
+                        <h4 class="event-name"></h4>
                         <p class="event-date">10 Juin 2016</p>
                     </div>
                     <div class="col s12 m12 l2 center">
-                        <img src="flags/48/Germany.png" class="flag" alt="Allemagne" />
+                        <img src="flags/48/Germany.png" class="flag flag-team2" alt="Allemagne" />
                     </div>
                 </div>
             </div>
@@ -277,6 +271,7 @@
                 <div class="row">
 
                     <form role="form" method="post" action="bet">
+                        <input type="hidden" name="event" class="event" />
                         <div class="col s12 m4 l4 center">
                             <button type="submit" name="bet" class="waves-effect indigo waves-indigo btn team1">Victoire</button>
                             <p>(3.66)</p>
@@ -304,6 +299,7 @@
         <script type="text/javascript" src="<%= baseUrl%>/js/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script type="text/javascript">
+            
             $(document).ready(function () {
                 $(".button-collapse").sideNav();
                 $('ul.tabs').tabs();
@@ -317,14 +313,29 @@
                 $.post("<%= baseUrl%>/betajax",
                 {idEvent: idEvent},
                 function (event) {
-                    $('.modal-progress').hide();
-                    $('.modal-content').show();
+                    
+                    $('#modal .modal-progress').hide();
 
-                    $('.team1').append(event.team1.name);
-                    $('.team1').val(event.team1.id);
-                    $('.team2').append(event.team2.name);
-                    $('.team2').val(event.team1.id);
+                    if (event != null) {
+                        $('#modal .modal-content').show();
+                        updateModal(event);
+                    } else {
+                        $('#modal').closeModal();
+                    }
                 });
+            }
+
+            function updateModal(event) {
+                $('#modal .event').val(event.idEvent);
+                $('#modal .event-name').html(event.name);
+
+                $('#modal .flag-team1').attr('alt', event.team1.name);
+                $('#modal .team1').html("Victoire "+event.team1.name);
+                $('#modal .team1').val(event.team1.id);
+
+                $('#modal .flag-team2').attr('alt', event.team2.name);
+                $('#modal .team2').html("Victoire "+event.team2.name);
+                $('#modal .team2').val(event.team2.id);
             }
             
             

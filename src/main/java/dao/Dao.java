@@ -18,14 +18,6 @@ import utils.HibernateUtil;
 public class Dao<T> {
     
     protected Session session;
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
     
     public Dao() {
     }
@@ -76,7 +68,7 @@ public class Dao<T> {
      */
     public T getById(Class objectClass, int id) {
         startOperation();
-        T object = (T) this.session.get(objectClass, id);
+        T object = (T) this.session.load(objectClass, id);
         endOperation();
         
         return object;
@@ -89,7 +81,7 @@ public class Dao<T> {
      * @param where
      * @return 
      */
-    public List<T> getBy(Class objectClass, int limit, String where, String ... parameters) {
+    public List<T> getBy(Class objectClass, int limit, String where, Object ... parameters) {
         
         String hql = "FROM "+objectClass.getSimpleName();
         
@@ -103,7 +95,7 @@ public class Dao<T> {
         
         if(parameters != null) {
             int cpt = 0;
-            for(String parameter : parameters) {
+            for(Object parameter : parameters) {
                 query.setParameter(cpt, parameter);
                 cpt++;
             }
@@ -119,7 +111,7 @@ public class Dao<T> {
         return objects;
     }
     
-    public List<T> getBy(Class objectClass, String where, String ... parameters) {
+    public List<T> getBy(Class objectClass, String where, Object ... parameters) {
         return getBy(objectClass, -1, where, parameters);
     }
     

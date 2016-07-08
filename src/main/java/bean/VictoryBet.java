@@ -20,9 +20,6 @@ public class VictoryBet { //extends Bet {
     @Column(name="idVictoryBet")
     private int idScoreBet;
 
-    @Column(name="score")
-    private int score;
-
     @Column(name="points")
     private int points;
     
@@ -36,6 +33,10 @@ public class VictoryBet { //extends Bet {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idEvent")
     private Event event;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idBetTeam")
+    private Team betTeam;
 
     public int getPoints() {
         return points;
@@ -52,15 +53,7 @@ public class VictoryBet { //extends Bet {
     public void setDate(Date date) {
         this.date = date;
     }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
+    
     public int getIdScoreBet() {
         return idScoreBet;
     }
@@ -83,6 +76,14 @@ public class VictoryBet { //extends Bet {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Team getBetTeam() {
+        return betTeam;
+    }
+
+    public void setBetTeam(Team betTeam) {
+        this.betTeam = betTeam;
     }
 
 }

@@ -38,6 +38,17 @@ public class Bettor {
     
     @OneToMany(mappedBy = "bettor", cascade = CascadeType.ALL)
     private Set<ScoreBet> scoreBets = new HashSet<ScoreBet>();
+    
+    public boolean isBetted(Event event) {
+        
+        for(VictoryBet victoryBet : this.getVictoryBets()) {
+            if(victoryBet.getEvent().getIdEvent() == event.getIdEvent()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
     public int getIdBettor() {
         return idBettor;
