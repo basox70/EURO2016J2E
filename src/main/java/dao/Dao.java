@@ -132,4 +132,9 @@ public class Dao<T> {
         return getBy(objectClass, -1, null, null);
     }
     
+    public void evict(Object object) {
+        startOperation();
+        this.session.evict(object);
+        endOperation();
+    }
 }

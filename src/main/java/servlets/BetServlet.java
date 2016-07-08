@@ -65,11 +65,8 @@ public class BetServlet extends HttpServlet {
         Event event = eventDao.getById(Event.class, idEvent);
        
         Bettor bettor = (Bettor) request.getSession().getAttribute("bettor");
-        Dao<Bettor> daoBettor = new Dao<Bettor>();
-        bettor = daoBettor.getById(Bettor.class, bettor.getIdBettor());
         
-        Dao<VictoryBet> victoryBetDao = new Dao<VictoryBet>();
-        
+        Dao<VictoryBet> victoryBetDao = new Dao<VictoryBet>();  
         List<VictoryBet> victoryBets = victoryBetDao.getBy(VictoryBet.class, "idEvent = ? AND idBettor = ?", idEvent, bettor.getIdBettor());
         
         VictoryBet victoryBet = null;  
@@ -79,15 +76,14 @@ public class BetServlet extends HttpServlet {
             victoryBet.setBettor(bettor);
             victoryBet.setEvent(event);
             victoryBet.setDate(new Date()); 
-            victoryBet.setBetTeam(betTeam);
-            victoryBetDao.saveOrUpdate(victoryBet); 
         } else {
             victoryBet = victoryBets.get(0); 
-            victoryBet.setBetTeam(betTeam);
-            victoryBetDao.saveOrUpdate(victoryBet); 
         }
-        
 
+        victoryBet.setBetTeam(betTeam);
+        victoryBetDao.evict(bettor);
+        victoryBetDao.saveOrUpdate(victoryBet); 
+        
         String baseUrl = request.getRequestURL().toString().substring(0, request.getRequestURL().toString().lastIndexOf("/") + 1);
         response.sendRedirect(baseUrl);
     }
