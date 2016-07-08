@@ -14,6 +14,8 @@
 
         <link rel="stylesheet" href="./css/style.css">
         <!--Let browser know website is optimized for mobile-->
+        
+        <title>Abltx EuroBet 2016</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="theme-color" content="#5c6bc0" >
         <meta charset="UTF-8">
