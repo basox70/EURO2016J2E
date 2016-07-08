@@ -50,23 +50,22 @@ public class BetServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        Dao<Object> dao = new Dao<Object>();
 
         String idBetTeam = request.getParameter("bet");
 
-        Team betTeam = null;        
+        Team betTeam = null;  
         if (!idBetTeam.equals("")) {
-            Dao<Team> teamDao = new Dao<Team>();
-            betTeam = teamDao.getById(Team.class, Integer.parseInt(idBetTeam));
+            betTeam = (Team) dao.getById(Team.class, Integer.parseInt(idBetTeam));
         }
-        
         int idEvent = Integer.parseInt(request.getParameter("event"));
 
-        Dao<Event> eventDao = new Dao<Event>();
-        Event event = eventDao.getById(Event.class, idEvent);
+        Event event = (Event) dao.getById(Event.class, idEvent);
        
         Bettor bettor = (Bettor) request.getSession().getAttribute("bettor");
         
-        Dao<VictoryBet> victoryBetDao = new Dao<VictoryBet>();  
+        Dao<VictoryBet> victoryBetDao = new Dao<VictoryBet>();
         List<VictoryBet> victoryBets = victoryBetDao.getBy(VictoryBet.class, "idEvent = ? AND idBettor = ?", idEvent, bettor.getIdBettor());
         
         VictoryBet victoryBet = null;  
@@ -79,10 +78,9 @@ public class BetServlet extends HttpServlet {
         } else {
             victoryBet = victoryBets.get(0); 
         }
-
+        
         victoryBet.setBetTeam(betTeam);
-        victoryBetDao.evict(bettor);
-        victoryBetDao.saveOrUpdate(victoryBet); 
+        dao.saveOrUpdate(victoryBet); 
         
         String baseUrl = request.getRequestURL().toString().substring(0, request.getRequestURL().toString().lastIndexOf("/") + 1);
         response.sendRedirect(baseUrl);

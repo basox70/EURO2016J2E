@@ -7,6 +7,7 @@ package dao;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -75,7 +76,7 @@ public class Dao<T> {
      */
     public T getById(Class objectClass, int id) {
         startOperation();
-        T object = (T) this.session.get(objectClass, id);
+        T object = (T) this.session.load(objectClass, id);
         endOperation();
         
         return object;
@@ -132,9 +133,9 @@ public class Dao<T> {
         return getBy(objectClass, -1, null, null);
     }
     
-    public void evict(Object object) {
+    public void merge(Object object) {
         startOperation();
-        this.session.evict(object);
+        this.session.merge(object);
         endOperation();
     }
 }
