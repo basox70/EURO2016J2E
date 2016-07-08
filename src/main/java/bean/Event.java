@@ -50,7 +50,6 @@ public class Event {
     @JoinColumn(name = "idTeam2")
     private Team team2;
     
-    
 //    
 //    @Column(name="name")
 //    private String city;
