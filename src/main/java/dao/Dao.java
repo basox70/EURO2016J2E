@@ -76,10 +76,7 @@ public class Dao<T> {
      */
     public T getById(Class objectClass, int id) {
         startOperation();
-        T object = (T) this.session.load(objectClass, id);
-        if(object.equals(null)) {
-            object = (T) this.session.get(objectClass, id);
-        }
+        T object = (T) this.session.get(objectClass, id);
         endOperation();
         return object;
     }
