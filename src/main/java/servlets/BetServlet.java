@@ -74,7 +74,7 @@ public class BetServlet extends HttpServlet {
         if(victoryBets.size() == 0) {
             victoryBet = new VictoryBet();
             victoryBet.setPoints(0);
-            victoryBet.setBettor(bettor);
+            //victoryBet.setBettor(bettor);
             victoryBet.setEvent(event);
             victoryBet.setDate(new Date());
         } else {
