@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -46,7 +47,13 @@ public class Dao<T> {
      */
     public void saveOrUpdate(T object) {
         startOperation();
-        this.session.saveOrUpdate(object);
+        this.session.update(object);
+        endOperation();
+    }
+    
+    public void save(T object) {
+        startOperation();
+        this.session.save(object);
         endOperation();
     }
     
@@ -68,7 +75,7 @@ public class Dao<T> {
      */
     public T getById(Class objectClass, int id) {
         startOperation();
-        T object = (T) this.session.get(objectClass, id);
+        T object = (T) this.session.load(objectClass, id);
         endOperation();
         
         return object;
@@ -108,7 +115,10 @@ public class Dao<T> {
         List<T> objects = query.list();
         endOperation();
         
-        return objects;
+        if(objects.isEmpty())
+            return new LinkedList<T>();
+        else
+            return objects;
     }
     
     public List<T> getBy(Class objectClass, String where, Object ... parameters) {

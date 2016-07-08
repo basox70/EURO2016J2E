@@ -70,20 +70,21 @@ public class BetServlet extends HttpServlet {
         
         List<VictoryBet> victoryBets = victoryBetDao.getBy(VictoryBet.class, "idEvent = ? AND idBettor = ?", idEvent, bettor.getIdBettor());
         
-        VictoryBet victoryBet;    
+        VictoryBet victoryBet = null;  
         if(victoryBets.size() == 0) {
             victoryBet = new VictoryBet();
             victoryBet.setPoints(0);
-            //victoryBet.setBettor(bettor);
+            victoryBet.setBettor(bettor);
             victoryBet.setEvent(event);
-            victoryBet.setDate(new Date());
+            victoryBet.setDate(new Date()); 
+            victoryBet.setBetTeam(betTeam);
+            victoryBetDao.save(victoryBet); 
         } else {
-            victoryBet = victoryBets.get(0);
+            victoryBet = victoryBets.get(0); 
+            victoryBet.setBetTeam(betTeam);
+            victoryBetDao.saveOrUpdate(victoryBet); 
         }
         
-        victoryBet.setBetTeam(betTeam);
-
-        victoryBetDao.saveOrUpdate(victoryBet);
 
         String baseUrl = request.getRequestURL().toString().substring(0, request.getRequestURL().toString().lastIndexOf("/") + 1);
         response.sendRedirect(baseUrl);
