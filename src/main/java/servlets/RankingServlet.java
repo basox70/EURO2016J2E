@@ -6,13 +6,8 @@
 package servlets;
 
 import bean.Bettor;
-import bean.Event;
 import dao.BettorDao;
-import dao.Dao;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

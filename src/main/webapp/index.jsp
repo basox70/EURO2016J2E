@@ -285,6 +285,7 @@
                             <button type="submit" name="bet" class="waves-effect indigo waves-indigo btn team2" href="#">Victoire </button>
                             <p>(1.04)</p>
                         </div>
+                    </form>
                 </div>
             </div>
             <div class="modal-progress progress">

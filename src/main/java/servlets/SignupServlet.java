@@ -8,13 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import bean.Bettor;
 import dao.Dao;
 import java.util.List;
-import utils.HibernateUtil;
 
 public class SignupServlet extends HttpServlet {
 

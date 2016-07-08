@@ -7,7 +7,6 @@ package dao;
 
 import java.util.LinkedList;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
