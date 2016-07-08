@@ -63,8 +63,10 @@ public class BetServlet extends HttpServlet {
 
         Dao<Event> eventDao = new Dao<Event>();
         Event event = eventDao.getById(Event.class, idEvent);
-        
+       
         Bettor bettor = (Bettor) request.getSession().getAttribute("bettor");
+        Dao<Bettor> daoBettor = new Dao<Bettor>();
+        bettor = daoBettor.getById(Bettor.class, bettor.getIdBettor());
         
         Dao<VictoryBet> victoryBetDao = new Dao<VictoryBet>();
         
@@ -78,7 +80,7 @@ public class BetServlet extends HttpServlet {
             victoryBet.setEvent(event);
             victoryBet.setDate(new Date()); 
             victoryBet.setBetTeam(betTeam);
-            victoryBetDao.save(victoryBet); 
+            victoryBetDao.saveOrUpdate(victoryBet); 
         } else {
             victoryBet = victoryBets.get(0); 
             victoryBet.setBetTeam(betTeam);

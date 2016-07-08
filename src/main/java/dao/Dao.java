@@ -47,15 +47,15 @@ public class Dao<T> {
      */
     public void saveOrUpdate(T object) {
         startOperation();
-        this.session.update(object);
+        this.session.saveOrUpdate(object);
         endOperation();
     }
     
-    public void save(T object) {
+    /*public void save(T object) {
         startOperation();
         this.session.save(object);
         endOperation();
-    }
+    }*/
     
     /**
      * Supprime un object de la BDD
@@ -80,7 +80,6 @@ public class Dao<T> {
         
         return object;
     }
-    
     
     /**
      * Retour la liste des objets correspondant au where indiqué
